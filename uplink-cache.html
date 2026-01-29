@@ -81,13 +81,26 @@
           <hr class="sep" />
 
           <div class="ctaRow" style="margin-top:14px;">
-            <a class="btn primary" href="/inbox/" target="_blank" rel="noreferrer">LOGIN TO INBOX</a>
-            <a class="btn" href="/inbox/index.json" target="_blank" rel="noreferrer">VERIFY AUTH</a>
+            <a class="btn" href="/inbox/" target="_blank" rel="noreferrer">LOGIN / CHECK INBOX</a>
+            <a class="btn" href="/inbox/index.json" target="_blank" rel="noreferrer">VERIFY AUTH (JSON)</a>
+          </div>
+
+          <div class="card" style="grid-column: span 12; margin-top:16px;">
+            <h3>UPLOAD</h3>
+            <p class="hint">Upload a file into INBOX (requires login). Max size: 25MB.</p>
+
+            <form id="uploadForm" class="prose" style="padding:16px;" enctype="multipart/form-data">
+              <p style="margin:0 0 10px" class="hint">Choose a file, then upload. Your browser may prompt for credentials.</p>
+              <input type="file" name="file" id="fileInput" style="color: var(--ink);" />
+              <div class="ctaRow" style="margin-top:12px;">
+                <button class="btn primary" type="submit">UPLOAD TO INBOX</button>
+              </div>
+              <div id="uploadStatus" class="callout" style="display:none; margin-top:12px;"></div>
+            </form>
           </div>
 
           <div class="callout" style="margin-top:14px;">
-            If your browser doesn’t pop a login prompt automatically, click <code>LOGIN TO INBOX</code>.
-            Once authenticated, return here and the INBOX list will populate.
+            Tip: If Edge shows a 401 page, click <code>LOGIN / CHECK INBOX</code> first to trigger the credential prompt.
           </div>
 
           <div class="card" style="grid-column: span 12; margin-top:16px;">
@@ -138,6 +151,49 @@
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   <script src="./script.js"></script>
   <script>
+    // Upload handler (POST /upload)
+    (() => {
+      const form = document.getElementById('uploadForm');
+      const fileInput = document.getElementById('fileInput');
+      const status = document.getElementById('uploadStatus');
+      if (!form || !fileInput || !status) return;
+
+      const show = (msg) => {
+        status.style.display = 'block';
+        status.textContent = msg;
+      };
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!fileInput.files || !fileInput.files[0]) {
+          show('Select a file first.');
+          return;
+        }
+
+        const fd = new FormData();
+        fd.append('file', fileInput.files[0]);
+        show('Uploading…');
+
+        try {
+          const res = await fetch('/upload', { method: 'POST', body: fd });
+          const text = await res.text();
+          let data;
+          try { data = JSON.parse(text); } catch { data = { ok:false, error:text }; }
+
+          if (!res.ok || !data.ok) {
+            show(`Upload failed: ${data.error || ('HTTP ' + res.status)}`);
+            return;
+          }
+
+          show(`Uploaded: ${data.savedAs}`);
+          // refresh inbox list
+          setTimeout(() => window.location.reload(), 600);
+        } catch (err) {
+          show('Upload error (check login): ' + err.message);
+        }
+      });
+    })();
+
     // Simple index driven by /drops/index.json (generated/maintained by the assistant)
     (async () => {
       const el = document.getElementById('dropList');
