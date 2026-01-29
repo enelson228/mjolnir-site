@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MJOLNIR // About</title>
+  <meta name="description" content="About MJOLNIR — who I am, what I build, and what I’m optimizing for." />
+  <link rel="stylesheet" href="./styles.css" />
+    <!-- Icons (cache-busted) -->
+  <link rel="icon" href="/assets/favicon.ico?v=20260129" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=20260129" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icon-16.png?v=20260129" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-180.png?v=20260129" />
+  <link rel="manifest" href="/site.webmanifest?v=20260129" />
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="halo-ring" aria-hidden="true"></div>
+  <div class="scanline" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="container nav">
+        <a class="brand" href="./index.html">
+          <span class="sigil" aria-hidden="true"></span>
+          <strong>MJOLNIR</strong>
+        </a>
+        <nav aria-label="Primary">
+          <a href="./index.html">HOME</a>
+          <a href="./about.html" aria-current="page">ABOUT</a>
+          <a href="./projects.html">PROJECTS</a>
+          <a href="./telemetry.html">TELEMETRY</a>
+          <a href="./nelsonweb.html">NELSONWEB</a>
+          <a href="./docs.html">DOCS</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <section class="hero" aria-label="About">
+          <div class="kicker">
+            <span class="pill">DOSSIER</span>
+            <span>CLEARANCE • TIME <span data-clock></span></span>
+          </div>
+
+          <h2 class="pageTitle">ABOUT ME</h2>
+          <p class="subtitle">
+            Not a corporation. Not a brand. Just a builder with a lab mindset.
+            I like clean interfaces, hardened systems, and plans that survive contact with reality.
+          </p>
+
+          <div class="grid">
+            <article class="card" style="grid-column: span 12;">
+              <h3>ORIGIN</h3>
+              <div class="prose">
+                <p>
+                  Welcome to <code>nellysupreme.cloud</code> — a small slice of the internet that’s treated like a lab bench.
+                  This place exists for one purpose: <em>to build, test, and harden</em>.
+                  The theme is a nod to two obsessions: neon diagnostics (cyber lab) and the idea of armor as systems design (Halo).
+                </p>
+                <p>
+                  I’m the operator behind the visor — the person who reads the logs, follows the packet trail, and refuses to ship anything I can’t observe.
+                  I like systems that fail loudly, recover cleanly, and leave receipts.
+                </p>
+                <p>
+                  When I’m not tinkering, I’m usually doing one of three things:
+                  <br />• turning “it should work” into <code>it does work</code>
+                  <br />• building automation so future-me doesn’t suffer
+                  <br />• learning how attackers think so defenses get smarter
+                </p>
+                <div class="callout">
+                  FIELD NOTE: If you want this to be more literal (your name, your role, your links), tell me what you want public and I’ll lock it in.
+                </div>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>WHAT I BUILD</h3>
+              <p>
+                Systems that are observable, secure-by-default, and boring in production.
+                The fun stays in the lab.
+              </p>
+              <div class="kv">
+                <span>LINUX</span><span>NGINX</span><span>DOCKER</span><span>CI/CD</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>OPERATING PRINCIPLES</h3>
+              <p>
+                Reduce fragility. Prefer small components.
+                Automate everything that hurts twice.
+              </p>
+              <div class="kv">
+                <span>LEAST SURPRISE</span><span>DEFENSE-IN-DEPTH</span><span>LOGS OR IT DIDN’T HAPPEN</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>CONTACT</h3>
+              <p>
+                I keep contact paths deliberate (less noise, fewer bots).
+                If you want a public channel, we can add an email alias or a simple form with rate limits.
+              </p>
+              <div class="kv">
+                <span>CONTACT: ON REQUEST</span><span>FORM: OPTIONAL</span><span>NO SPAM</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>FUN BIT</h3>
+              <p>
+                If this lab had a motto, it’d be:
+                <br /><br />
+                <span style="color:rgba(69,255,154,.95); font-family:var(--mono); letter-spacing:.10em;">
+                  “BUILD IT LIKE ARMOR. TEST IT LIKE A WEAPON.”
+                </span>
+              </p>
+            </article>
+          </div>
+
+          <hr class="sep" />
+
+          <div class="ctaRow">
+            <a class="btn primary" href="./index.html">RETURN TO BASE</a>
+            <a class="btn" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">SCROLL TOP</a>
+          </div>
+
+        </section>
+
+        <footer>
+          <div class="footerRow">
+            <div>© <span id="year"></span> MJOLNIR</div>
+            <div>Generated as a static site (easy to host, easy to harden)</div>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="./script.js"></script>
+</body>
+</html>

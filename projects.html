@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MJOLNIR // Projects</title>
+  <meta name="description" content="MJOLNIR projects — builds, experiments, and deployments." />
+  <link rel="stylesheet" href="./styles.css" />
+    <!-- Icons (cache-busted) -->
+  <link rel="icon" href="/assets/favicon.ico?v=20260129" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=20260129" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icon-16.png?v=20260129" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-180.png?v=20260129" />
+  <link rel="manifest" href="/site.webmanifest?v=20260129" />
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="halo-ring" aria-hidden="true"></div>
+  <div class="scanline" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="container nav">
+        <a class="brand" href="./index.html">
+          <span class="sigil" aria-hidden="true"></span>
+          <strong>MJOLNIR</strong>
+        </a>
+        <nav aria-label="Primary">
+          <a href="./index.html">HOME</a>
+          <a href="./about.html">ABOUT</a>
+          <a href="./projects.html" aria-current="page">PROJECTS</a>
+          <a href="./telemetry.html">TELEMETRY</a>
+          <a href="./nelsonweb.html">NELSONWEB</a>
+          <a href="./docs.html">DOCS</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <section class="hero" aria-label="Projects">
+          <div class="kicker">
+            <span class="pill">HANGAR</span>
+            <span>DEPLOYMENTS • TIME <span data-clock></span></span>
+          </div>
+
+          <h2 class="pageTitle">PROJECTS</h2>
+          <p class="subtitle">
+            Things I’ve built, things I’m building, and experiments that survived the sandbox.
+            This page is meant to stay practical: what it is, why it exists, and how it’s run.
+          </p>
+
+          <div class="grid" data-project-grid>
+            <article class="card" style="grid-column: span 12;">
+              <h3>LOADING</h3>
+              <p>Syncing projects feed…</p>
+              <div class="kv"><span>WAIT</span></div>
+            </article>
+          </div>
+          <div class="telemetryError" data-project-error style="margin-top:12px"></div>
+
+          <hr class="sep" />
+          <div class="ctaRow">
+            <a class="btn primary" href="./nelsonweb.html">OPEN NELSONWEB</a>
+            <a class="btn" href="./telemetry.html">VIEW TELEMETRY</a>
+          </div>
+        </section>
+
+        <footer>
+          <div class="footerRow">
+            <div>© <span id="year"></span> MJOLNIR</div>
+            <div>Projects list is hand-curated (for now)</div>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="./script.js"></script>
+  <script src="./projects.js"></script>
+</body>
+</html>

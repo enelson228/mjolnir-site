@@ -1,0 +1,12 @@
+# Runtime-generated feeds
+telemetry.json
+projects.json
+
+# Drop zone contents (keep index + placeholder only)
+drops/*
+!drops/index.json
+!drops/.gitkeep
+
+# OS/editor cruft
+.DS_Store
+*.swp

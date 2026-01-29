@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MJOLNIR // NelsonWeb</title>
+  <meta name="description" content="NelsonWeb running inside the MJOLNIR shell." />
+  <link rel="stylesheet" href="./styles.css" />
+    <!-- Icons (cache-busted) -->
+  <link rel="icon" href="/assets/favicon.ico?v=20260129" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=20260129" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icon-16.png?v=20260129" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-180.png?v=20260129" />
+  <link rel="manifest" href="/site.webmanifest?v=20260129" />
+  <style>
+    .frameWrap{
+      margin-top: 18px;
+      border-radius: var(--radius2);
+      overflow: hidden;
+      border:1px solid rgba(102,217,255,.16);
+      background: linear-gradient(180deg, rgba(10,18,28,.82), rgba(7,14,22,.62));
+      box-shadow: var(--shadow);
+    }
+    .frameTop{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding: 14px 16px;
+      border-bottom:1px solid rgba(102,217,255,.12);
+      background: rgba(9,22,32,.35);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing:.12em;
+      color: rgba(157,177,198,.9);
+      text-transform: uppercase;
+    }
+    .frameTop .ok{ color: rgba(69,255,154,.95); }
+    iframe{
+      display:block;
+      width: 100%;
+      height: 900px; /* will be auto-resized by iframe-resize.js */
+      border: 0;
+      background: transparent;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="halo-ring" aria-hidden="true"></div>
+  <div class="scanline" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="container nav">
+        <a class="brand" href="./index.html">
+          <span class="sigil" aria-hidden="true"></span>
+          <strong>MJOLNIR</strong>
+        </a>
+        <nav aria-label="Primary">
+          <a href="./index.html">HOME</a>
+          <a href="./about.html">ABOUT</a>
+          <a href="./projects.html">PROJECTS</a>
+          <a href="./telemetry.html">TELEMETRY</a>
+          <a href="./nelsonweb.html" aria-current="page">NELSONWEB</a>
+          <a href="./docs.html">DOCS</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <section class="hero" aria-label="NelsonWeb">
+          <div class="kicker">
+            <span class="pill">MODULE</span>
+            <span>INTEGRATED • TIME <span data-clock></span></span>
+          </div>
+
+          <h2 class="pageTitle">NELSONWEB</h2>
+          <p class="subtitle">The quiz app, running as a module inside MJOLNIR.</p>
+
+          <div class="frameWrap">
+            <div class="frameTop">
+              <span>APP: /nelsonweb/quizlet_flashcard_app.html</span>
+              <span class="ok">STATUS: ONLINE</span>
+            </div>
+            <iframe
+              id="nelsonweb-frame"
+              data-mjolnir-frame
+              src="/nelsonweb/"
+              title="NelsonWeb"
+              loading="lazy"
+              referrerpolicy="no-referrer"
+            ></iframe>
+          </div>
+        </section>
+
+        <footer>
+          <div class="footerRow">
+            <div>© <span id="year"></span> MJOLNIR</div>
+            <div>NelsonWeb is served separately under <code>/nelsonweb/</code></div>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="./script.js"></script>
+  <script src="./iframe-resize.js"></script>
+</body>
+</html>

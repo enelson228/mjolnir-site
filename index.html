@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MJOLNIR // Home</title>
+  <meta name="description" content="MJOLNIR — a cyber lab meets Halo-themed personal homepage." />
+  <link rel="stylesheet" href="./styles.css" />
+  <!-- Icons (cache-busted) -->
+  <link rel="icon" href="/assets/favicon.ico?v=20260129" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=20260129" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icon-16.png?v=20260129" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-180.png?v=20260129" />
+  <link rel="manifest" href="/site.webmanifest?v=20260129" />
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="halo-ring" aria-hidden="true"></div>
+  <div class="scanline" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="container nav">
+        <a class="brand" href="./index.html">
+          <span class="sigil" aria-hidden="true"></span>
+          <strong>MJOLNIR</strong>
+        </a>
+        <nav aria-label="Primary">
+          <a href="./index.html" aria-current="page">HOME</a>
+          <a href="./about.html">ABOUT</a>
+          <a href="./projects.html">PROJECTS</a>
+          <a href="./telemetry.html">TELEMETRY</a>
+          <a href="./nelsonweb.html">NELSONWEB</a>
+          <a href="./docs.html">DOCS</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <section class="hero" aria-label="MJOLNIR Hero">
+          <div class="kicker">
+            <span class="pill">LAB ONLINE</span>
+            <span>SECURE CHANNEL • TIME <span data-clock></span></span>
+          </div>
+
+          <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:14px;">
+            <img class="heroMark" src="./assets/mjolnir-logo-halo-512.png" alt="MJOLNIR" width="92" height="92" />
+            <h1 style="margin:0;">MJOLNIR</h1>
+          </div>
+          <p class="subtitle">
+            A clean room for ideas: part cyber lab, part Spartan program.
+            I build systems, break systems (ethically), and ship the fixes.
+          </p>
+
+          <div class="ctaRow">
+            <a class="btn primary" href="./about.html">ACCESS DOSSIER</a>
+            <a class="btn" href="#ops">VIEW OPS LOG</a>
+          </div>
+
+          <hr class="sep" />
+
+          <div class="grid" id="ops">
+            <article class="card">
+              <h3>MISSION</h3>
+              <p>
+                Turn messy real-world problems into reliable, observable, and defensible systems.
+                The vibe is <em>dark glass + neon diagnostics</em> — with just enough mythos to be fun.
+              </p>
+              <div class="kv" aria-label="Mission tags">
+                <span>SECURITY</span><span>INFRA</span><span>AUTOMATION</span><span>HARDENING</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>LAB STATUS</h3>
+              <p>
+                All modules nominal. Telemetry enabled. Drift tolerated.
+                If you’re here to collaborate, the easiest path is:
+                define the objective → define constraints → iterate fast.
+              </p>
+              <div class="kv" aria-label="Status metrics">
+                <span>UPLINK: STABLE</span><span>RISK: MANAGED</span><span>BUILD: GREEN</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>RULES OF ENGAGEMENT</h3>
+              <p>
+                Curious, careful, and direct.
+                Offensive curiosity belongs in a sandbox; production gets safety rails.
+                Everything gets logs.
+              </p>
+              <div class="kv" aria-label="Rules tags">
+                <span>SANDBOX FIRST</span><span>LEAST PRIVILEGE</span><span>DOCUMENT IT</span>
+              </div>
+            </article>
+
+            <article class="card">
+              <h3>NEXT OBJECTIVES</h3>
+              <p>
+                Add projects, a contact method, and a “range” page for experiments.
+                If you want, we can also turn this into a small dashboard that pulls real VPS stats.
+              </p>
+              <div class="kv" aria-label="Objectives tags">
+                <span>PROJECTS</span><span>CONTACT</span><span>TELEMETRY</span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <footer>
+          <div class="footerRow">
+            <div>© <span id="year"></span> MJOLNIR • Unauthorized access is discouraged.</div>
+            <div>Theme: cyber lab × Halo (original fan aesthetic)</div>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="./script.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MJOLNIR // Telemetry</title>
+  <meta name="description" content="MJOLNIR telemetry — VPS status feed." />
+  <link rel="stylesheet" href="./styles.css" />
+    <!-- Icons (cache-busted) -->
+  <link rel="icon" href="/assets/favicon.ico?v=20260129" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=20260129" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icon-16.png?v=20260129" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-180.png?v=20260129" />
+  <link rel="manifest" href="/site.webmanifest?v=20260129" />
+  <style>
+    .telemetry{
+      margin-top: 18px;
+      padding: 18px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(10,18,28,.74), rgba(7,14,22,.56));
+      border:1px solid rgba(102,217,255,.14);
+    }
+    .telemetry .row{
+      display:flex; align-items:flex-start; justify-content:space-between;
+      gap: 14px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(102,217,255,.10);
+    }
+    .telemetry .row:last-child{border-bottom:0}
+    .telemetry .k{
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .14em;
+      color: rgba(157,177,198,.85);
+      text-transform: uppercase;
+      min-width: 160px;
+    }
+    .telemetry .v{
+      font-family: var(--mono);
+      font-size: 12.5px;
+      letter-spacing: .08em;
+      color: rgba(231,242,255,.92);
+      text-align:right;
+      word-break: break-word;
+    }
+    .telemetryError{
+      margin-top: 12px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing:.08em;
+      color: rgba(255, 77, 109, .95);
+    }
+    .stamp{margin-top: 12px; color: rgba(157,177,198,.75); font-family: var(--mono); font-size: 12px; letter-spacing:.08em}
+  </style>
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="halo-ring" aria-hidden="true"></div>
+  <div class="scanline" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="container nav">
+        <a class="brand" href="./index.html">
+          <span class="sigil" aria-hidden="true"></span>
+          <strong>MJOLNIR</strong>
+        </a>
+        <nav aria-label="Primary">
+          <a href="./index.html">HOME</a>
+          <a href="./about.html">ABOUT</a>
+          <a href="./projects.html">PROJECTS</a>
+          <a href="./telemetry.html" aria-current="page">TELEMETRY</a>
+          <a href="./nelsonweb.html">NELSONWEB</a>
+          <a href="./docs.html">DOCS</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <section class="hero" aria-label="Telemetry">
+          <div class="kicker">
+            <span class="pill">SENSORS</span>
+            <span>LIVE FEED • TIME <span data-clock></span></span>
+          </div>
+
+          <h2 class="pageTitle">TELEMETRY</h2>
+          <p class="subtitle">
+            Lightweight system status from this VPS. No dashboards, no noise — just the essentials.
+          </p>
+
+          <div class="telemetry" data-telemetry>
+            <div class="row"><div class="k">STATUS</div><div class="v">loading…</div></div>
+          </div>
+          <div class="telemetryError" data-telemetry-error></div>
+          <div class="stamp" data-telemetry-stamp></div>
+
+          <div class="callout" style="margin-top:18px;">
+            NOTE: Telemetry is generated locally into <code>/telemetry.json</code> and refreshed periodically.
+          </div>
+        </section>
+
+        <footer>
+          <div class="footerRow">
+            <div>© <span id="year"></span> MJOLNIR</div>
+            <div>Refresh: 5s (client-side)</div>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+  <script src="./script.js"></script>
+  <script src="./telemetry.js"></script>
+</body>
+</html>

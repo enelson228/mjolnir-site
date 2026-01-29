@@ -1,0 +1,41 @@
+{
+  "generated_utc": "2026-01-29T10:19:00Z",
+  "files": [
+    {
+      "name": "mjolnir-logo-armor-1024.png",
+      "type": "image/png",
+      "size": 130595,
+      "updated_unix": 1769681931
+    },
+    {
+      "name": "mjolnir-logo-armor-512.png",
+      "type": "image/png",
+      "size": 75897,
+      "updated_unix": 1769681931
+    },
+    {
+      "name": "mjolnir-logo-halo-512.png",
+      "type": "image/png",
+      "size": 91357,
+      "updated_unix": 1769681370
+    },
+    {
+      "name": "mjolnir-logo-halo-1024.png",
+      "type": "image/png",
+      "size": 136361,
+      "updated_unix": 1769681370
+    },
+    {
+      "name": "mjolnir-logo-512.png",
+      "type": "image/png",
+      "size": 80672,
+      "updated_unix": 1769681274
+    },
+    {
+      "name": "mjolnir-logo-1024.png",
+      "type": "image/png",
+      "size": 164462,
+      "updated_unix": 1769681274
+    }
+  ]
+}
