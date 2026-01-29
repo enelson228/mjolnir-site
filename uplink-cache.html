@@ -177,7 +177,11 @@
           if(!res.ok) throw new Error(`HTTP ${res.status}`);
           const data = await res.json();
           const files = (data.files || []);
-          if(!files.length) throw new Error('empty');
+
+          if(!files.length){
+            inboxEl.innerHTML = `<div class="fileRow"><div class="mono">OK</div><div class="mono">AUTH OK • INBOX EMPTY</div></div>`;
+            return;
+          }
 
           inboxEl.innerHTML = files.slice(0, 50).map(f => {
             const name = f.name;
