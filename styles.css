@@ -200,6 +200,18 @@ main{flex:1; padding:42px 0 56px}
   box-shadow: 0 0 34px rgba(102,217,255,.12), 0 0 28px rgba(69,255,154,.08);
 }
 
+.hero-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.h1-no-margin {
+  margin: 0;
+}
+
 h1{
   margin:14px 0 10px;
   font-size: clamp(44px, 6vw, 74px);
