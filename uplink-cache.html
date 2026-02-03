@@ -6,7 +6,7 @@
   <title>MJOLNIR // Uplink Cache</title>
   <meta name="description" content="MJOLNIR uplink cache — two-way file portal (drops + inbox)." />
   <link rel="stylesheet" href="./styles.css" />
-    <!-- Icons (cache-busted) -->
+  <!-- Icons (cache-busted) -->
   <link rel="icon" href="/assets/favicon.ico?v=20260129" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=20260129" />
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/icon-16.png?v=20260129" />
@@ -24,6 +24,364 @@
     .fileRow a:hover{ text-decoration: underline; }
     .hint{ color: var(--muted); line-height:1.7 }
     .mono{ font-family: var(--mono); letter-spacing:.06em }
+
+    /* Login Screen Styles */
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: radial-gradient(1200px 800px at 50% 30%, rgba(102,217,255,.08), transparent 70%),
+                  linear-gradient(180deg, var(--bg0), var(--bg1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      transition: opacity 0.4s ease;
+    }
+
+    .login-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .login-container {
+      max-width: 480px;
+      width: 90%;
+      padding: 40px;
+      border-radius: var(--radius2);
+      background: linear-gradient(180deg, rgba(10,18,28,.95), rgba(7,14,22,.88));
+      border: 1px solid rgba(102,217,255,.25);
+      box-shadow: 0 0 60px rgba(102,217,255,.15), var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-container::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background: radial-gradient(600px 300px at 50% 0%, rgba(102,217,255,.15), transparent 70%),
+                  radial-gradient(500px 300px at 50% 100%, rgba(69,255,154,.10), transparent 70%);
+      opacity: 1;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .login-container > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .login-sigil {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      border-radius: 18px;
+      background: url('./assets/mjolnir-logo-halo-512.png') center/cover no-repeat,
+                  linear-gradient(180deg, rgba(12,24,36,.9), rgba(10,18,28,.55));
+      border: 1px solid rgba(102,217,255,.35);
+      box-shadow: 0 0 40px rgba(102,217,255,.18), 0 0 50px rgba(69,255,154,.12);
+    }
+
+    .login-title {
+      font-family: var(--mono);
+      font-size: 24px;
+      letter-spacing: .18em;
+      margin: 0 0 8px;
+      color: var(--ink);
+      text-transform: uppercase;
+    }
+
+    .login-subtitle {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .12em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .login-form {
+      margin-top: 28px;
+    }
+
+    .login-field {
+      margin-bottom: 20px;
+    }
+
+    .login-label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .14em;
+      color: var(--muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 14px 16px;
+      font-family: var(--mono);
+      font-size: 15px;
+      letter-spacing: .08em;
+      background: rgba(6,8,14,.65);
+      border: 1px solid rgba(102,217,255,.18);
+      border-radius: 12px;
+      color: var(--ink);
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .login-input:focus {
+      border-color: rgba(102,217,255,.45);
+      box-shadow: 0 0 20px rgba(102,217,255,.12);
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 16px;
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      background: rgba(69,255,154,.12);
+      border: 1px solid rgba(69,255,154,.28);
+      border-radius: 14px;
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 30px rgba(69,255,154,.15);
+    }
+
+    .login-button:hover {
+      background: rgba(69,255,154,.18);
+      border-color: rgba(69,255,154,.42);
+      box-shadow: 0 0 40px rgba(69,255,154,.22);
+    }
+
+    .login-error {
+      margin-top: 14px;
+      padding: 12px;
+      background: rgba(255,77,109,.10);
+      border: 1px solid rgba(255,77,109,.25);
+      border-radius: 10px;
+      color: var(--danger);
+      font-family: var(--mono);
+      font-size: 12px;
+      text-align: center;
+      display: none;
+    }
+
+    .login-error.visible {
+      display: block;
+    }
+
+    .login-hint {
+      margin-top: 20px;
+      padding: 14px;
+      background: rgba(102,217,255,.06);
+      border: 1px solid rgba(102,217,255,.14);
+      border-radius: 12px;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* Drag and Drop Upload Zone */
+    .upload-zone {
+      margin-top: 20px;
+      padding: 40px 24px;
+      border: 2px dashed rgba(102,217,255,.25);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(10,18,28,.45), rgba(7,14,22,.32));
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .upload-zone.drag-over {
+      border-color: rgba(69,255,154,.55);
+      background: linear-gradient(180deg, rgba(69,255,154,.12), rgba(69,255,154,.08));
+      box-shadow: 0 0 40px rgba(69,255,154,.18);
+    }
+
+    .upload-zone.uploading {
+      border-color: rgba(102,217,255,.35);
+      background: linear-gradient(180deg, rgba(102,217,255,.10), rgba(102,217,255,.06));
+    }
+
+    .upload-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+      opacity: .7;
+    }
+
+    .upload-text {
+      font-family: var(--mono);
+      font-size: 14px;
+      letter-spacing: .08em;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .upload-hint {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: .06em;
+    }
+
+    .upload-file-input {
+      display: none;
+    }
+
+    .upload-progress {
+      margin-top: 16px;
+      display: none;
+    }
+
+    .upload-progress.visible {
+      display: block;
+    }
+
+    .upload-progress-bar {
+      height: 6px;
+      background: rgba(102,217,255,.15);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .upload-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--neon2), var(--neon));
+      border-radius: 3px;
+      width: 0%;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 10px rgba(102,217,255,.4);
+    }
+
+    .upload-status {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .upload-selected-file {
+      margin-top: 12px;
+      padding: 12px;
+      background: rgba(102,217,255,.08);
+      border: 1px solid rgba(102,217,255,.18);
+      border-radius: 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--ink);
+      display: none;
+    }
+
+    .upload-selected-file.visible {
+      display: block;
+    }
+
+    .upload-actions {
+      margin-top: 16px;
+      display: none;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .upload-actions.visible {
+      display: flex;
+    }
+
+    .upload-button-small {
+      padding: 10px 16px;
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .12em;
+      border-radius: 10px;
+      border: 1px solid rgba(102,217,255,.22);
+      background: rgba(9,22,32,.55);
+      color: var(--ink);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .upload-button-small:hover {
+      border-color: rgba(102,217,255,.38);
+      background: rgba(9,22,32,.72);
+    }
+
+    .upload-button-small.primary {
+      border-color: rgba(69,255,154,.28);
+      background: rgba(69,255,154,.12);
+      box-shadow: 0 0 20px rgba(69,255,154,.10);
+    }
+
+    .upload-button-small.primary:hover {
+      background: rgba(69,255,154,.18);
+      border-color: rgba(69,255,154,.42);
+    }
+
+    /* Enhanced file list styling */
+    .file-section {
+      margin-top: 20px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .section-badge {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .12em;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(102,217,255,.08);
+      border: 1px solid rgba(102,217,255,.18);
+      color: var(--neon2);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 13px;
+      opacity: .7;
+    }
+
+    /* Animation for login screen */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-container {
+      animation: fadeIn 0.5s ease;
+    }
+
+    /* Pulse animation for upload zone */
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(69,255,154,.15); }
+      50% { box-shadow: 0 0 40px rgba(69,255,154,.25); }
+    }
+
+    .upload-zone.drag-over {
+      animation: pulse 2s ease-in-out infinite;
+    }
   </style>
 </head>
 <body>
@@ -32,6 +390,35 @@
   <div class="halo-ring" aria-hidden="true"></div>
   <div class="scanline" aria-hidden="true"></div>
 
+  <!-- Login Overlay -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-container">
+      <div class="login-header">
+        <div class="login-sigil" aria-hidden="true"></div>
+        <h1 class="login-title">UPLINK ACCESS</h1>
+        <p class="login-subtitle">Secure Terminal • Auth Required</p>
+      </div>
+      <form class="login-form" id="loginForm">
+        <div class="login-field">
+          <label class="login-label" for="passwordInput">Access Code</label>
+          <input
+            type="password"
+            id="passwordInput"
+            class="login-input"
+            placeholder="Enter access code..."
+            autocomplete="current-password"
+            required
+          />
+        </div>
+        <button type="submit" class="login-button">AUTHENTICATE</button>
+        <div class="login-error" id="loginError">Access denied. Invalid credentials.</div>
+      </form>
+      <div class="login-hint">
+        This portal uses HTTP Basic Authentication. Your browser will manage the session. Files in INBOX are password-protected; DROPS are publicly accessible.
+      </div>
+    </div>
+  </div>
+
   <div class="wrap">
     <header>
       <div class="container nav">
@@ -39,12 +426,15 @@
           <span class="sigil" aria-hidden="true"></span>
           <strong>MJOLNIR</strong>
         </a>
-        <nav aria-label="Primary">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation">
+            <span class="sr-only">Menu</span>
+            <span class="hamburger"></span>
+        </button>
+        <nav aria-label="Primary" id="primary-navigation" data-visible="false">
           <a href="./index.html">HOME</a>
           <a href="./about.html">ABOUT</a>
           <a href="./projects.html">PROJECTS</a>
-          <a href="./telemetry.html">TELEMETRY</a>
-          <a href="./nelsonweb.html">NELSONWEB</a>
+          <a href="./artemis.html">ARTEMIS II</a>
           <a href="./uplink-cache.html" aria-current="page">UPLINK CACHE</a>
         </nav>
       </div>
@@ -52,7 +442,7 @@
 
     <main>
       <div class="container">
-        <section class="hero" aria-label="Docs">
+        <section class="hero" aria-label="Uplink Cache">
           <div class="kicker">
             <span class="pill">DROP ZONE</span>
             <span>FILES • TIME <span data-clock></span></span>
@@ -60,79 +450,78 @@
 
           <h2 class="pageTitle">UPLINK CACHE</h2>
           <p class="subtitle">
-            Two-way portal.
+            Two-way file portal between systems.
             <br />
-            <strong>DROPS</strong> are files I generate for you.
+            <strong>DROPS</strong> are files generated for you (public).
             <br />
-            <strong>INBOX</strong> is where you upload files for me to retrieve.
+            <strong>INBOX</strong> is where you upload files for retrieval (protected).
           </p>
-
-          <div class="prose">
-            <p class="hint">
-              <strong>DROPS</strong> (outgoing): <span class="mono">/var/www/mjolnir/drops/</span> → <span class="mono">/drops/</span><br />
-              <strong>INBOX</strong> (incoming): <span class="mono">/var/www/mjolnir/inbox/</span> → <span class="mono">/inbox/</span>
-            </p>
-            <div class="callout">
-              Upload method (Option B): SFTP/SCP into <span class="mono">/var/www/mjolnir/inbox/</span>.
-              The <span class="mono">/inbox/</span> URL is password-protected.
-            </div>
-          </div>
 
           <hr class="sep" />
 
-          <div class="ctaRow" style="margin-top:14px;">
-            <a class="btn" href="/inbox/" target="_blank" rel="noreferrer">LOGIN / CHECK INBOX</a>
-            <a class="btn" href="/inbox/index.json" target="_blank" rel="noreferrer">VERIFY AUTH (JSON)</a>
-          </div>
-
+          <!-- Drag and Drop Upload Zone -->
           <div class="card" style="grid-column: span 12; margin-top:16px;">
-            <h3>UPLOAD</h3>
-            <p class="hint">Upload a file into INBOX (requires login). Max size: 25MB.</p>
+            <div class="section-header">
+              <h3>UPLOAD TO INBOX</h3>
+              <span class="section-badge">PROTECTED</span>
+            </div>
+            <p class="hint">Drag and drop files or click to browse. Max size: 25MB per file.</p>
 
-            <form id="uploadForm" class="prose" style="padding:16px;" enctype="multipart/form-data">
-              <p style="margin:0 0 10px" class="hint">Choose a file, then upload. Your browser may prompt for credentials.</p>
-              <input type="file" name="file" id="fileInput" style="color: var(--ink);" />
-              <div class="ctaRow" style="margin-top:12px;">
-                <button class="btn primary" type="submit">UPLOAD TO INBOX</button>
+            <div class="upload-zone" id="uploadZone">
+              <div class="upload-icon">⬆</div>
+              <div class="upload-text">Drop files here or click to browse</div>
+              <div class="upload-hint">Supports all file types • Max 25MB</div>
+              <input type="file" id="fileInput" class="upload-file-input" multiple />
+
+              <div class="upload-selected-file" id="selectedFile"></div>
+
+              <div class="upload-actions" id="uploadActions">
+                <button type="button" class="upload-button-small" id="clearButton">Clear</button>
+                <button type="button" class="upload-button-small primary" id="uploadButton">Upload</button>
               </div>
-              <div id="uploadStatus" class="callout" style="display:none; margin-top:12px;"></div>
-            </form>
+
+              <div class="upload-progress" id="uploadProgress">
+                <div class="upload-progress-bar">
+                  <div class="upload-progress-fill" id="progressFill"></div>
+                </div>
+                <div class="upload-status" id="uploadStatus">Preparing upload...</div>
+              </div>
+            </div>
           </div>
 
-          <div class="callout" style="margin-top:14px;">
-            Tip: If Edge shows a 401 page, click <code>LOGIN / CHECK INBOX</code> first to trigger the credential prompt.
-          </div>
-
-          <div class="card" style="grid-column: span 12; margin-top:16px;">
-            <h3>LATEST DROP</h3>
+          <!-- Latest Drop -->
+          <div class="card file-section" style="grid-column: span 12; margin-top:16px;">
+            <div class="section-header">
+              <h3>LATEST DROP</h3>
+              <span class="section-badge">PUBLIC</span>
+            </div>
             <p class="hint">Most recent outgoing file.</p>
             <div class="list" id="latestDrop">
-              <div class="fileRow">
-                <div class="mono">—</div>
-                <div class="mono">NO FILES YET</div>
-              </div>
+              <div class="empty-state">No files yet</div>
             </div>
           </div>
 
-          <div class="card" style="grid-column: span 12; margin-top:16px;">
-            <h3>DROPS</h3>
+          <!-- All Drops -->
+          <div class="card file-section" style="grid-column: span 12; margin-top:16px;">
+            <div class="section-header">
+              <h3>DROPS</h3>
+              <span class="section-badge">PUBLIC</span>
+            </div>
             <p class="hint">Outgoing files (generated by the assistant).</p>
             <div class="list" id="dropList">
-              <div class="fileRow">
-                <div class="mono">—</div>
-                <div class="mono">NO FILES YET</div>
-              </div>
+              <div class="empty-state">No files yet</div>
             </div>
           </div>
 
-          <div class="card" style="grid-column: span 12; margin-top:16px;">
-            <h3>INBOX</h3>
-            <p class="hint">Incoming uploads (password-protected). If you haven’t authenticated yet, your browser will prompt.</p>
+          <!-- Inbox -->
+          <div class="card file-section" style="grid-column: span 12; margin-top:16px;">
+            <div class="section-header">
+              <h3>INBOX</h3>
+              <span class="section-badge">PROTECTED</span>
+            </div>
+            <p class="hint">Incoming uploads (password-protected).</p>
             <div class="list" id="inboxList">
-              <div class="fileRow">
-                <div class="mono">—</div>
-                <div class="mono">NO FILES (OR LOCKED)</div>
-              </div>
+              <div class="empty-state">Authenticating...</div>
             </div>
           </div>
 
@@ -141,7 +530,7 @@
         <footer>
           <div class="footerRow">
             <div>© <span id="year"></span> MJOLNIR</div>
-            <div>Drop zone: <span class="mono">/drops/</span></div>
+            <div>Drop zone: <span class="mono">/drops/</span> • Inbox: <span class="mono">/inbox/</span></div>
           </div>
         </footer>
       </div>
@@ -151,105 +540,307 @@
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
   <script src="./script.js"></script>
   <script>
-    // Upload handler (POST /upload)
+    // ========================================
+    // Authentication System
+    // ========================================
     (() => {
-      const form = document.getElementById('uploadForm');
-      const fileInput = document.getElementById('fileInput');
-      const status = document.getElementById('uploadStatus');
-      if (!form || !fileInput || !status) return;
+      const loginOverlay = document.getElementById('loginOverlay');
+      const loginForm = document.getElementById('loginForm');
+      const passwordInput = document.getElementById('passwordInput');
+      const loginError = document.getElementById('loginError');
 
-      const show = (msg) => {
-        status.style.display = 'block';
-        status.textContent = msg;
-      };
+      // Check if already authenticated by trying to fetch inbox
+      async function checkAuth() {
+        try {
+          const res = await fetch('/inbox/index.json', {
+            cache: 'no-store',
+            credentials: 'include'
+          });
 
-      form.addEventListener('submit', async (e) => {
+          if (res.ok) {
+            // Already authenticated
+            loginOverlay.classList.add('hidden');
+            loadInbox();
+            return true;
+          }
+          return false;
+        } catch (err) {
+          return false;
+        }
+      }
+
+      // Handle login form submission
+      loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        if (!fileInput.files || !fileInput.files[0]) {
-          show('Select a file first.');
+        loginError.classList.remove('visible');
+
+        const password = passwordInput.value;
+        if (!password) return;
+
+        try {
+          // Try to authenticate by fetching inbox with credentials
+          const res = await fetch('/inbox/index.json', {
+            headers: {
+              'Authorization': 'Basic ' + btoa('mjolnir:' + password)
+            },
+            cache: 'no-store',
+            credentials: 'include'
+          });
+
+          if (res.ok) {
+            // Success
+            sessionStorage.setItem('uplink_auth', 'true');
+            loginOverlay.classList.add('hidden');
+            loadInbox();
+          } else {
+            // Failed
+            loginError.classList.add('visible');
+            passwordInput.value = '';
+            passwordInput.focus();
+          }
+        } catch (err) {
+          loginError.textContent = 'Connection error. Please try again.';
+          loginError.classList.add('visible');
+        }
+      });
+
+      // Check auth on load
+      checkAuth();
+    })();
+
+    // ========================================
+    // Drag and Drop Upload System
+    // ========================================
+    (() => {
+      const uploadZone = document.getElementById('uploadZone');
+      const fileInput = document.getElementById('fileInput');
+      const selectedFile = document.getElementById('selectedFile');
+      const uploadActions = document.getElementById('uploadActions');
+      const uploadProgress = document.getElementById('uploadProgress');
+      const uploadButton = document.getElementById('uploadButton');
+      const clearButton = document.getElementById('clearButton');
+      const progressFill = document.getElementById('progressFill');
+      const uploadStatus = document.getElementById('uploadStatus');
+
+      let currentFile = null;
+      const MAX_SIZE = 25 * 1024 * 1024; // 25MB
+
+      // Click to browse
+      uploadZone.addEventListener('click', (e) => {
+        if (e.target.closest('button')) return; // Don't trigger if clicking buttons
+        fileInput.click();
+      });
+
+      // File selected via input
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files[0]) {
+          handleFile(e.target.files[0]);
+        }
+      });
+
+      // Drag and drop handlers
+      uploadZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        uploadZone.classList.add('drag-over');
+      });
+
+      uploadZone.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        uploadZone.classList.remove('drag-over');
+      });
+
+      uploadZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        uploadZone.classList.remove('drag-over');
+
+        if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+          handleFile(e.dataTransfer.files[0]);
+        }
+      });
+
+      // Handle file selection
+      function handleFile(file) {
+        if (file.size > MAX_SIZE) {
+          showError(`File too large: ${formatSize(file.size)}. Max: 25MB`);
           return;
         }
 
+        currentFile = file;
+        selectedFile.textContent = `📄 ${file.name} (${formatSize(file.size)})`;
+        selectedFile.classList.add('visible');
+        uploadActions.classList.add('visible');
+        uploadProgress.classList.remove('visible');
+      }
+
+      // Clear selection
+      clearButton.addEventListener('click', (e) => {
+        e.stopPropagation();
+        currentFile = null;
+        fileInput.value = '';
+        selectedFile.classList.remove('visible');
+        uploadActions.classList.remove('visible');
+        uploadProgress.classList.remove('visible');
+      });
+
+      // Upload file
+      uploadButton.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        if (!currentFile) return;
+
+        uploadActions.classList.remove('visible');
+        uploadProgress.classList.add('visible');
+        uploadZone.classList.add('uploading');
+        uploadStatus.textContent = 'Uploading...';
+        progressFill.style.width = '0%';
+
         const fd = new FormData();
-        fd.append('file', fileInput.files[0]);
-        show('Uploading…');
+        fd.append('file', currentFile);
 
         try {
-          const res = await fetch('/upload', { method: 'POST', body: fd });
+          // Simulate progress (since we don't have real progress from fetch)
+          let progress = 0;
+          const progressInterval = setInterval(() => {
+            progress += Math.random() * 30;
+            if (progress > 90) progress = 90;
+            progressFill.style.width = progress + '%';
+          }, 200);
+
+          const res = await fetch('/upload', {
+            method: 'POST',
+            body: fd,
+            credentials: 'include'
+          });
+
+          clearInterval(progressInterval);
+          progressFill.style.width = '100%';
+
           const text = await res.text();
           let data;
           try { data = JSON.parse(text); } catch { data = { ok:false, error:text }; }
 
           if (!res.ok || !data.ok) {
-            show(`Upload failed: ${data.error || ('HTTP ' + res.status)}`);
+            showError(`Upload failed: ${data.error || ('HTTP ' + res.status)}`);
             return;
           }
 
-          show(`Uploaded: ${data.savedAs}`);
-          // refresh inbox list
-          setTimeout(() => window.location.reload(), 600);
+          uploadStatus.textContent = `✓ Uploaded: ${data.savedAs}`;
+
+          // Reset after success
+          setTimeout(() => {
+            currentFile = null;
+            fileInput.value = '';
+            selectedFile.classList.remove('visible');
+            uploadProgress.classList.remove('visible');
+            uploadZone.classList.remove('uploading');
+            loadInbox(); // Refresh inbox list
+          }, 2000);
+
         } catch (err) {
-          show('Upload error (check login): ' + err.message);
+          showError('Upload error: ' + err.message);
         }
       });
+
+      function showError(msg) {
+        uploadStatus.textContent = '⚠ ' + msg;
+        uploadProgress.classList.add('visible');
+        progressFill.style.width = '0%';
+        uploadZone.classList.remove('uploading');
+
+        setTimeout(() => {
+          uploadProgress.classList.remove('visible');
+          uploadActions.classList.add('visible');
+        }, 3000);
+      }
+
+      function formatSize(bytes) {
+        if (bytes === 0) return '0 B';
+        const k = 1024;
+        const sizes = ['B', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+      }
     })();
 
-    // Simple index driven by /drops/index.json (generated/maintained by the assistant)
+    // ========================================
+    // File Listings (Drops & Inbox)
+    // ========================================
+
+    // Load Drops (public)
     (async () => {
       const el = document.getElementById('dropList');
       const latestEl = document.getElementById('latestDrop');
-      const inboxEl = document.getElementById('inboxList');
 
-      // DROPS (public)
-      try{
+      try {
         const res = await fetch('/drops/index.json', { cache: 'no-store' });
-        if(!res.ok) throw new Error('no index');
+        if (!res.ok) throw new Error('no index');
         const data = await res.json();
         const files = (data.files || []);
-        if(!files.length) throw new Error('empty');
+        if (!files.length) throw new Error('empty');
 
+        // Latest drop
         const top = files[0];
-        if (latestEl && top){
+        if (latestEl && top) {
           const name = top.name;
           const url = `/drops/${encodeURIComponent(name)}`;
-          const meta = [top.type, top.size].filter(Boolean).join(' • ');
-          latestEl.innerHTML = `<div class="fileRow"><a href="${url}">${name}</a><div class="mono">${meta}</div></div>`;
+          const meta = [top.type, formatBytes(top.size)].filter(Boolean).join(' • ');
+          latestEl.innerHTML = `<div class="fileRow"><a href="${url}">${escapeHtml(name)}</a><div class="mono">${meta}</div></div>`;
         }
 
+        // All drops
         el.innerHTML = files.slice(0, 50).map(f => {
           const name = f.name;
           const url = `/drops/${encodeURIComponent(name)}`;
-          const meta = [f.type, f.size].filter(Boolean).join(' • ');
-          return `<div class="fileRow"><a href="${url}">${name}</a><div class="mono">${meta}</div></div>`;
+          const meta = [f.type, formatBytes(f.size)].filter(Boolean).join(' • ');
+          return `<div class="fileRow"><a href="${url}">${escapeHtml(name)}</a><div class="mono">${meta}</div></div>`;
         }).join('');
-      }catch{
-        // keep placeholder
-      }
-
-      // INBOX (password-protected)
-      if (inboxEl){
-        try{
-          const res = await fetch('/inbox/index.json', { cache: 'no-store' });
-          if(!res.ok) throw new Error(`HTTP ${res.status}`);
-          const data = await res.json();
-          const files = (data.files || []);
-
-          if(!files.length){
-            inboxEl.innerHTML = `<div class="fileRow"><div class="mono">OK</div><div class="mono">AUTH OK • INBOX EMPTY</div></div>`;
-            return;
-          }
-
-          inboxEl.innerHTML = files.slice(0, 50).map(f => {
-            const name = f.name;
-            const url = `/inbox/${encodeURIComponent(name)}`;
-            const meta = [f.type, f.size].filter(Boolean).join(' • ');
-            return `<div class="fileRow"><a href="${url}">${name}</a><div class="mono">${meta}</div></div>`;
-          }).join('');
-        }catch{
-          // keep placeholder (locked or empty)
-        }
+      } catch {
+        // Keep empty state
       }
     })();
+
+    // Load Inbox (protected)
+    async function loadInbox() {
+      const inboxEl = document.getElementById('inboxList');
+      if (!inboxEl) return;
+
+      try {
+        const res = await fetch('/inbox/index.json', {
+          cache: 'no-store',
+          credentials: 'include'
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const files = (data.files || []);
+
+        if (!files.length) {
+          inboxEl.innerHTML = `<div class="empty-state">Inbox is empty</div>`;
+          return;
+        }
+
+        inboxEl.innerHTML = files.slice(0, 50).map(f => {
+          const name = f.name;
+          const url = `/inbox/${encodeURIComponent(name)}`;
+          const meta = [f.type, formatBytes(f.size)].filter(Boolean).join(' • ');
+          return `<div class="fileRow"><a href="${url}">${escapeHtml(name)}</a><div class="mono">${meta}</div></div>`;
+        }).join('');
+      } catch {
+        inboxEl.innerHTML = `<div class="empty-state">Authentication required or empty</div>`;
+      }
+    }
+
+    // Utility functions
+    function formatBytes(bytes) {
+      if (!bytes) return '';
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
   </script>
 </body>
 </html>

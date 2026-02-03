@@ -1,0 +1,50 @@
+{
+  "generated_utc": "2026-02-02T12:50:00Z",
+  "source": "github+seed+manual",
+  "projects": [
+    {
+      "title": "MJOLNIR",
+      "description": "Cyber lab × Halo-themed personal site. Static, hardened, neon diagnostics.",
+      "url": "https://nellysupreme.cloud/",
+      "tags": [
+        "STATIC",
+        "NGINX",
+        "HTTPS"
+      ],
+      "pinned": true
+    },
+    {
+      "title": "NELSONWEB",
+      "description": "Web-based quiz / flashcard module running inside MJOLNIR.",
+      "url": "https://nellysupreme.cloud/nelsonweb.html",
+      "tags": [
+        "WEBAPP",
+        "QUIZ",
+        "MODULE"
+      ],
+      "pinned": true
+    },
+    {
+      "title": "TELEMETRY",
+      "description": "Lightweight VPS status feed (JSON generated on-host, rendered client-side).",
+      "url": "https://nellysupreme.cloud/telemetry.html",
+      "tags": [
+        "JSON",
+        "SYSTEMD",
+        "NO-DB"
+      ],
+      "pinned": true
+    },
+    {
+      "title": "ARTEMIS II",
+      "description": "Track NASA's Artemis II mission — Orion's first crewed flight around the Moon.",
+      "url": "./artemis.html",
+      "tags": [
+        "NASA",
+        "MISSION",
+        "TRACKER"
+      ],
+      "pinned": true
+    }
+  ]
+}

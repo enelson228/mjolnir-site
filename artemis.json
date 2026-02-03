@@ -1,0 +1,158 @@
+{
+  "mission": {
+    "name": "Artemis II",
+    "tagline": "First Crewed Flight Test",
+    "description": "NASA's first crewed mission beyond Earth orbit in over 50 years. Four astronauts will orbit the Moon and return, testing critical systems for future lunar landings.",
+    "vehicle": "SLS Block 1",
+    "spacecraft": "Orion",
+    "launchSite": "Kennedy Space Center, LC-39B",
+    "landingSite": null,
+    "crew": 4,
+    "duration": "~10 days",
+    "launchDate": "2026-04-01T12:00:00Z",
+    "launchDateDisplay": "April 2026",
+    "status": "PRE-LAUNCH"
+  },
+  "milestones": [
+    {
+      "id": "launch",
+      "name": "LAUNCH",
+      "time": "T+0",
+      "timeSeconds": 0,
+      "description": "SLS liftoff from Launch Complex 39B at Kennedy Space Center",
+      "icon": "rocket",
+      "status": "pending"
+    },
+    {
+      "id": "orbit",
+      "name": "ORBIT INSERTION",
+      "time": "T+12m",
+      "timeSeconds": 720,
+      "description": "Orion spacecraft achieves stable Earth orbit",
+      "icon": "globe",
+      "status": "pending"
+    },
+    {
+      "id": "tli",
+      "name": "TRANS-LUNAR INJECTION",
+      "time": "T+2h",
+      "timeSeconds": 7200,
+      "description": "Upper stage burn sends Orion toward the Moon",
+      "icon": "arrow-right",
+      "status": "pending"
+    },
+    {
+      "id": "lunar-flyby",
+      "name": "LUNAR FLYBY",
+      "time": "T+4d",
+      "timeSeconds": 345600,
+      "description": "Orion spacecraft flies past the Moon at closest approach, approximately 7,400 miles from lunar surface",
+      "icon": "moon",
+      "status": "pending"
+    },
+    {
+      "id": "return",
+      "name": "EARTH RETURN",
+      "time": "T+8d",
+      "timeSeconds": 691200,
+      "description": "Orion splashdown in the Pacific Ocean after 10-day mission",
+      "icon": "earth",
+      "status": "pending"
+    }
+  ],
+  "fallbackNews": [
+    {
+      "id": 5,
+      "title": "Artemis II Crew Completes Final Launch Simulation",
+      "summary": "The four astronauts of Artemis II have successfully completed their final full-duration launch countdown simulation at Kennedy Space Center, a major milestone before their lunar flyby mission.",
+      "imageUrl": "https://www.nasa.gov/wp-content/uploads/2024/02/artemis-ii-quarter-moon.jpg",
+      "url": "https://www.nasa.gov/missions/artemis/artemis-ii/",
+      "source": "NASA",
+      "date": "2026-01-28"
+    },
+    {
+      "id": 1,
+      "title": "NASA Prepares for Artemis II Crewed Lunar Flyby",
+      "summary": "Teams at Kennedy Space Center continue integration of the Space Launch System rocket and Orion spacecraft for the first crewed flight beyond Earth orbit in over 50 years.",
+      "imageUrl": "https://www.nasa.gov/wp-content/uploads/2023/04/artemis-i-launch.jpg",
+      "url": "https://www.nasa.gov/artemis-ii",
+      "source": "NASA",
+      "date": "2026-01-15"
+    },
+    {
+      "id": 2,
+      "title": "Artemis II: Testing Orion for Future Lunar Missions",
+      "summary": "The Artemis II mission will test all critical systems aboard the Orion spacecraft with crew, validating life support, navigation, and communication systems for future missions.",
+      "imageUrl": "https://www.nasa.gov/wp-content/uploads/2021/04/orion-spacecraft.jpg",
+      "url": "https://www.nasa.gov/artemis-ii",
+      "source": "NASA",
+      "date": "2026-01-10"
+    },
+    {
+      "id": 3,
+      "title": "Artemis II Crew Announced for Historic Lunar Flyby",
+      "summary": "NASA reveals the four astronauts who will journey around the Moon on Artemis II, becoming the first humans to travel beyond Earth orbit since Apollo 17.",
+      "imageUrl": "https://www.nasa.gov/wp-content/uploads/2023/04/artemis-crew.jpg",
+      "url": "https://www.nasa.gov/artemis/crew",
+      "source": "NASA",
+      "date": "2025-12-20"
+    },
+    {
+      "id": 4,
+      "title": "Lunar Flyby: Artemis II's Path Around the Moon",
+      "summary": "Scientists explain the trajectory for Artemis II, which will take the crew within 7,400 miles of the lunar surface before returning to Earth.",
+      "imageUrl": "https://www.nasa.gov/wp-content/uploads/2023/09/lunar-trajectory.jpg",
+      "url": "https://www.nasa.gov/artemis-ii",
+      "source": "NASA Science",
+      "date": "2025-12-05"
+    }
+  ],
+  "fallbackImages": [
+    {
+      "id": 1,
+      "title": "Artemis I Launch",
+      "url": "https://images-assets.nasa.gov/image/KSC-20221116-PH-JBS01_0001/KSC-20221116-PH-JBS01_0001~medium.jpg",
+      "description": "Space Launch System rocket lifts off from Kennedy Space Center"
+    },
+    {
+      "id": 2,
+      "title": "Orion Spacecraft",
+      "url": "https://images-assets.nasa.gov/image/KSC-20221125-PH-FMX01_0001/KSC-20221125-PH-FMX01_0001~medium.jpg",
+      "description": "Orion spacecraft captured in lunar orbit during Artemis I"
+    },
+    {
+      "id": 3,
+      "title": "SLS on Launch Pad",
+      "url": "https://images-assets.nasa.gov/image/KSC-20220826-PH-KLS01_0014/KSC-20220826-PH-KLS01_0014~medium.jpg",
+      "description": "Space Launch System rocket at Launch Complex 39B"
+    },
+    {
+      "id": 4,
+      "title": "Artemis Crew Training",
+      "url": "https://images-assets.nasa.gov/image/jsc2023e015952/jsc2023e015952~medium.jpg",
+      "description": "Astronauts train for lunar surface operations"
+    },
+    {
+      "id": 5,
+      "title": "Moon from Orion",
+      "url": "https://images-assets.nasa.gov/image/art001e000672/art001e000672~medium.jpg",
+      "description": "The Moon as seen from Orion spacecraft"
+    },
+    {
+      "id": 6,
+      "title": "Orion and Earth",
+      "url": "https://images-assets.nasa.gov/image/art001e002132/art001e002132~medium.jpg",
+      "description": "Earth rises behind Orion spacecraft during Artemis I"
+    }
+  ],
+  "apiEndpoints": {
+    "launchLibrary": "https://ll.thespacedevs.com/2.2.0/launch/upcoming/?search=artemis",
+    "spaceflightNews": "https://api.spaceflightnewsapi.net/v4/articles/?search=artemis&limit=6",
+    "nasaImages": "https://images-api.nasa.gov/search?q=artemis&media_type=image"
+  },
+  "refreshIntervals": {
+    "countdown": 1000,
+    "news": 900000,
+    "images": 3600000
+  }
+}

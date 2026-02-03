@@ -1,3 +1,11 @@
+// Sanitize HTML to prevent XSS attacks
+function escapeHtml(text) {
+  if (!text) return '';
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
 async function loadTelemetry(){
   const out = document.querySelector('[data-telemetry]');
   const err = document.querySelector('[data-telemetry-error]');
@@ -58,7 +66,7 @@ async function loadTelemetry(){
 
     out.innerHTML = lines.map(([k,v]) => {
       const vv = (v === undefined || v === null || v === '') ? '—' : String(v);
-      return `<div class="row"><div class="k">${k}</div><div class="v">${vv}</div></div>`;
+      return `<div class="row"><div class="k">${escapeHtml(k)}</div><div class="v">${escapeHtml(vv)}</div></div>`;
     }).join('');
 
     if (stamp) stamp.textContent = `Last update: ${data.time_utc}`;

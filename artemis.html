@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MJOLNIR // Artemis II Tracker</title>
+  <meta name="description" content="Track NASA's Artemis II mission - the first crewed flight beyond Earth orbit in over 50 years. Live countdown, mission milestones, news, and photos." />
+  <link rel="stylesheet" href="./styles.css" />
+  <!-- Icons -->
+  <link rel="icon" href="/assets/favicon.ico?v=20260129" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png?v=20260129" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/icon-16.png?v=20260129" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-180.png?v=20260129" />
+  <link rel="manifest" href="/site.webmanifest?v=20260129" />
+</head>
+<body>
+  <canvas id="stars" aria-hidden="true"></canvas>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="halo-ring" aria-hidden="true"></div>
+  <div class="scanline" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="container nav">
+        <a class="brand" href="./index.html">
+          <span class="sigil" aria-hidden="true"></span>
+          <strong>MJOLNIR</strong>
+        </a>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation">
+            <span class="sr-only">Menu</span>
+            <span class="hamburger"></span>
+        </button>
+        <nav aria-label="Primary" id="primary-navigation" data-visible="false">
+          <a href="./index.html">HOME</a>
+          <a href="./about.html">ABOUT</a>
+          <a href="./projects.html">PROJECTS</a>
+          <a href="./artemis.html" aria-current="page">ARTEMIS II</a>
+          <a href="./uplink-cache.html">UPLINK CACHE</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <!-- Hero Section -->
+        <section class="hero artemis-hero" aria-label="Artemis II Tracker">
+          <div class="kicker">
+            <span class="pill" id="mission-status-pill">PRE-LAUNCH</span>
+            <span>MISSION TRACKER • <span data-clock></span></span>
+          </div>
+
+          <h1 class="artemis-title">ARTEMIS II</h1>
+          <p class="subtitle">First crewed flight test — lunar flyby mission paving the way for humanity's return</p>
+
+          <!-- Countdown Timer -->
+          <div class="countdown-container" role="timer" aria-label="Mission countdown">
+            <div class="countdown" id="countdown">
+              <div class="countdown-segment">
+                <span class="countdown-value" id="countdown-days">---</span>
+                <span class="countdown-label">DAYS</span>
+              </div>
+              <span class="countdown-sep">:</span>
+              <div class="countdown-segment">
+                <span class="countdown-value" id="countdown-hours">--</span>
+                <span class="countdown-label">HRS</span>
+              </div>
+              <span class="countdown-sep">:</span>
+              <div class="countdown-segment">
+                <span class="countdown-value" id="countdown-minutes">--</span>
+                <span class="countdown-label">MIN</span>
+              </div>
+              <span class="countdown-sep">:</span>
+              <div class="countdown-segment">
+                <span class="countdown-value" id="countdown-seconds">--</span>
+                <span class="countdown-label">SEC</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="launch-meta">
+            <span id="launch-date">Launch: April 2026</span>
+            <span class="meta-sep">•</span>
+            <span id="launch-site">Kennedy Space Center, LC-39B</span>
+          </div>
+
+          <hr class="sep" />
+
+          <!-- Status Panel -->
+          <div class="grid status-grid">
+            <div class="card status-card">
+              <h3>STATUS</h3>
+              <p class="status-value highlight" id="status-current">PRE-LAUNCH</p>
+            </div>
+            <div class="card status-card">
+              <h3>VEHICLE</h3>
+              <p class="status-value" id="status-vehicle">SLS Block 1</p>
+            </div>
+            <div class="card status-card">
+              <h3>SPACECRAFT</h3>
+              <p class="status-value" id="status-spacecraft">Orion</p>
+            </div>
+            <div class="card status-card">
+              <h3>CREW</h3>
+              <p class="status-value" id="status-crew">4 Astronauts</p>
+            </div>
+            <div class="card status-card">
+              <h3>DURATION</h3>
+              <p class="status-value" id="status-duration">~10 Days</p>
+            </div>
+            <div class="card status-card">
+              <h3>DESTINATION</h3>
+              <p class="status-value" id="status-destination">Lunar Flyby</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Mission Timeline -->
+        <section class="hero timeline-section" aria-labelledby="timeline-title">
+          <div class="kicker">
+            <span class="pill pill-blue">TIMELINE</span>
+            <span>MISSION MILESTONES</span>
+          </div>
+
+          <h2 id="timeline-title" class="section-title">Mission Timeline</h2>
+          <p class="subtitle">Track the journey from Earth to Moon and back</p>
+
+          <div class="timeline-scroll">
+            <div class="timeline" id="timeline" role="list" aria-label="Mission milestones">
+              <!-- Milestones populated by JavaScript -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Mission Gallery -->
+        <section class="hero gallery-section" aria-labelledby="gallery-title">
+          <div class="kicker">
+            <span class="pill pill-blue">MISSION GALLERY</span>
+            <span>ARTEMIS II IMAGERY</span>
+          </div>
+
+          <h2 id="gallery-title" class="section-title">Mission Gallery</h2>
+          <p class="subtitle">Photos from NASA's Artemis II mission</p>
+
+          <div class="gallery-carousel-container">
+            <div class="gallery" id="gallery">
+              <!-- Gallery images will be populated by JavaScript -->
+            </div>
+            <button class="carousel-nav prev" id="gallery-carousel-prev" aria-label="Previous image">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"></path></svg>
+            </button>
+            <button class="carousel-nav next" id="gallery-carousel-next" aria-label="Next image">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg>
+            </button>
+            <div class="carousel-dots" id="gallery-carousel-dots"></div>
+          </div>
+        </section>
+
+        <footer>
+          <div class="footerRow">
+            <div>© <span id="year"></span> MJOLNIR • Data sourced from NASA, SpaceX, and public APIs</div>
+            <div>
+              <a href="https://www.nasa.gov/artemis" target="_blank" rel="noopener noreferrer">NASA Artemis</a> •
+              <a href="https://www.spacex.com" target="_blank" rel="noopener noreferrer">SpaceX</a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox-close" aria-label="Close image viewer">&times;</button>
+    <div class="lightbox-content">
+      <img src="" alt="" id="lightbox-image">
+      <p class="lightbox-caption" id="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+  <script src="./script.js"></script>
+  <script src="./artemis.js"></script>
+</body>
+</html>

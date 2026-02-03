@@ -26,12 +26,15 @@
           <span class="sigil" aria-hidden="true"></span>
           <strong>MJOLNIR</strong>
         </a>
-        <nav aria-label="Primary">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="primary-navigation">
+            <span class="sr-only">Menu</span>
+            <span class="hamburger"></span>
+        </button>
+        <nav aria-label="Primary" id="primary-navigation" data-visible="false">
           <a href="./index.html" aria-current="page">HOME</a>
           <a href="./about.html">ABOUT</a>
           <a href="./projects.html">PROJECTS</a>
-          <a href="./telemetry.html">TELEMETRY</a>
-          <a href="./nelsonweb.html">NELSONWEB</a>
+          <a href="./artemis.html">ARTEMIS II</a>
           <a href="./uplink-cache.html">UPLINK CACHE</a>
         </nav>
       </div>
@@ -45,9 +48,9 @@
             <span>SECURE CHANNEL • TIME <span data-clock></span></span>
           </div>
 
-          <div class="hero-title">
+          <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap; margin-top:14px;">
             <img class="heroMark" src="./assets/mjolnir-logo-halo-512.png" alt="MJOLNIR" width="92" height="92" />
-            <h1 class="h1-no-margin">MJOLNIR</h1>
+            <h1 style="margin:0;">MJOLNIR</h1>
           </div>
           <p class="subtitle">
             A clean room for ideas: part cyber lab, part Spartan program.
@@ -76,8 +79,8 @@
             <article class="card">
               <h3>LAB STATUS</h3>
               <p>
-                All modules nominal. Telemetry enabled. Drift tolerated.
-                If you’re here to collaborate, the easiest path is:
+                All modules nominal. Drift tolerated.
+                If you're here to collaborate, the easiest path is:
                 define the objective → define constraints → iterate fast.
               </p>
               <div class="kv" aria-label="Status metrics">
@@ -104,7 +107,7 @@
                 If you want, we can also turn this into a small dashboard that pulls real VPS stats.
               </p>
               <div class="kv" aria-label="Objectives tags">
-                <span>PROJECTS</span><span>CONTACT</span><span>TELEMETRY</span>
+                <span>PROJECTS</span><span>CONTACT</span><span>RANGE</span>
               </div>
             </article>
           </div>
